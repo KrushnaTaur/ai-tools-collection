@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Logo Generator</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:#f1f5f9;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+}
+
+.container{
+width:900px;
+background:white;
+padding:30px;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+h1{
+text-align:center;
+margin-bottom:20px;
+color:#111827;
+}
+
+input, select{
+width:100%;
+padding:12px;
+border-radius:8px;
+border:1px solid #d1d5db;
+margin-bottom:15px;
+font-size:14px;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#2563eb;
+border:none;
+color:white;
+font-size:16px;
+border-radius:8px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1d4ed8;
+}
+
+.logo-grid{
+margin-top:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+}
+
+.logo-card{
+background:#f3f4f6;
+padding:20px;
+border-radius:10px;
+text-align:center;
+font-size:20px;
+font-weight:bold;
+}
+
+.modern{
+font-family:sans-serif;
+letter-spacing:2px;
+}
+
+.tech{
+font-family:monospace;
+}
+
+.elegant{
+font-family:serif;
+}
+
+.icon{
+display:block;
+font-size:30px;
+margin-bottom:10px;
+}
+
+@media(max-width:900px){
+.container{
+width:90%;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🎨 AI Logo Generator</h1>
+
+<input id="brandInput" type="text" placeholder="Enter brand name">
+
+<select id="styleSelect">
+<option value="modern">Modern</option>
+<option value="tech">Tech</option>
+<option value="elegant">Elegant</option>
+</select>
+
+<button onclick="generateLogos()">Generate Logos</button>
+
+<div id="logoGrid" class="logo-grid"></div>
+
+</div>
+
+<script>
+
+function generateLogos(){
+
+const brand = document.getElementById("brandInput").value
+const style = document.getElementById("styleSelect").value
+const grid = document.getElementById("logoGrid")
+
+if(brand === ""){
+alert("Please enter a brand name")
+return
+}
+
+grid.innerHTML=""
+
+const icons = ["🚀","⚡","🔥","💡","🌟","🎯","🔷","🧠"]
+
+for(let i=0;i<6;i++){
+
+const card = document.createElement("div")
+card.className = "logo-card " + style
+
+const icon = icons[Math.floor(Math.random()*icons.length)]
+
+card.innerHTML = `
+<span class="icon">${icon}</span>
+${brand}
+`
+
+grid.appendChild(card)
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

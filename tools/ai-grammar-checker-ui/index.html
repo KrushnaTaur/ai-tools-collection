@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Grammar Checker</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:#f1f5f9;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+}
+
+.container{
+width:700px;
+background:white;
+padding:30px;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+h1{
+text-align:center;
+margin-bottom:20px;
+color:#111827;
+}
+
+textarea{
+width:100%;
+height:180px;
+padding:12px;
+border-radius:8px;
+border:1px solid #d1d5db;
+resize:none;
+font-size:14px;
+}
+
+button{
+margin-top:15px;
+width:100%;
+padding:12px;
+background:#2563eb;
+border:none;
+color:white;
+font-size:16px;
+border-radius:8px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1d4ed8;
+}
+
+.results{
+margin-top:20px;
+background:#f3f4f6;
+padding:20px;
+border-radius:8px;
+font-size:14px;
+}
+
+ul{
+padding-left:18px;
+}
+
+@media(max-width:750px){
+.container{
+width:90%;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>✍️ AI Grammar Checker</h1>
+
+<textarea id="textInput" placeholder="Type or paste text here..."></textarea>
+
+<button onclick="checkGrammar()">Check Grammar</button>
+
+<div class="results">
+<h3>Suggestions</h3>
+<ul id="suggestions"></ul>
+</div>
+
+</div>
+
+<script>
+
+function checkGrammar(){
+
+const text = document.getElementById("textInput").value
+const suggestionsList = document.getElementById("suggestions")
+
+suggestionsList.innerHTML = ""
+
+const suggestions = []
+
+if(text.includes("  ")){
+suggestions.push("Remove double spaces between words.")
+}
+
+if(text.includes(" i ")){
+suggestions.push("Capitalize 'I' when used as a pronoun.")
+}
+
+if(text.length > 0 && !/[.!?]$/.test(text.trim())){
+suggestions.push("Add punctuation at the end of the sentence.")
+}
+
+if(suggestions.length === 0){
+suggestions.push("No grammar issues detected. Your text looks good!")
+}
+
+suggestions.forEach(item=>{
+const li = document.createElement("li")
+li.innerText = item
+suggestionsList.appendChild(li)
+})
+
+}
+
+</script>
+
+</body>
+</html>

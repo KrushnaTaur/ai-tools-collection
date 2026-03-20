@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Resume Analyzer</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:#f1f5f9;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+}
+
+.container{
+width:700px;
+background:white;
+padding:30px;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+h1{
+text-align:center;
+margin-bottom:20px;
+color:#111827;
+}
+
+textarea{
+width:100%;
+height:180px;
+padding:12px;
+border-radius:8px;
+border:1px solid #d1d5db;
+resize:none;
+font-size:14px;
+}
+
+button{
+margin-top:15px;
+width:100%;
+padding:12px;
+background:#2563eb;
+border:none;
+color:white;
+font-size:16px;
+border-radius:8px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1d4ed8;
+}
+
+.results{
+margin-top:20px;
+background:#f3f4f6;
+padding:20px;
+border-radius:8px;
+font-size:14px;
+}
+
+.results h3{
+margin-top:10px;
+}
+
+ul{
+padding-left:18px;
+}
+
+.skill{
+display:inline-block;
+background:#2563eb;
+color:white;
+padding:5px 10px;
+border-radius:5px;
+margin:3px;
+font-size:12px;
+}
+
+@media(max-width:750px){
+.container{
+width:90%;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📄 AI Resume Analyzer</h1>
+
+<textarea id="resumeText" placeholder="Paste your resume text here..."></textarea>
+
+<button onclick="analyzeResume()">Analyze Resume</button>
+
+<div id="results" class="results">
+
+<h3>Skills Detected</h3>
+<div id="skills"></div>
+
+<h3>Resume Score</h3>
+<p id="score">0 / 100</p>
+
+<h3>Suggestions</h3>
+<ul id="suggestions"></ul>
+
+</div>
+
+</div>
+
+<script>
+
+function analyzeResume(){
+
+const text = document.getElementById("resumeText").value.toLowerCase()
+
+const skillKeywords = [
+"python","java","c++","html","css","javascript",
+"machine learning","ai","data science","sql",
+"react","node","git","aws"
+]
+
+const detectedSkills = []
+
+skillKeywords.forEach(skill=>{
+if(text.includes(skill)){
+detectedSkills.push(skill)
+}
+})
+
+const skillsContainer = document.getElementById("skills")
+skillsContainer.innerHTML=""
+
+detectedSkills.forEach(skill=>{
+const span = document.createElement("span")
+span.className="skill"
+span.innerText=skill
+skillsContainer.appendChild(span)
+})
+
+let score = detectedSkills.length * 7
+
+if(score > 100) score = 100
+
+document.getElementById("score").innerText = score + " / 100"
+
+const suggestionsList = document.getElementById("suggestions")
+suggestionsList.innerHTML=""
+
+const suggestions=[]
+
+if(!text.includes("project")) suggestions.push("Add projects section.")
+if(!text.includes("internship")) suggestions.push("Mention internship experience.")
+if(!text.includes("github")) suggestions.push("Include GitHub profile.")
+if(!text.includes("linkedin")) suggestions.push("Add LinkedIn profile.")
+if(detectedSkills.length < 5) suggestions.push("Add more technical skills.")
+
+if(suggestions.length === 0){
+suggestions.push("Your resume looks strong!")
+}
+
+suggestions.forEach(item=>{
+const li = document.createElement("li")
+li.innerText = item
+suggestionsList.appendChild(li)
+})
+
+}
+
+</script>
+
+</body>
+</html>

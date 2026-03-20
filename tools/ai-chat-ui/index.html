@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Chat Assistant</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:#f1f5f9;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.chat-container{
+width:420px;
+height:600px;
+background:white;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+display:flex;
+flex-direction:column;
+overflow:hidden;
+}
+
+.header{
+background:#111827;
+color:white;
+padding:15px;
+text-align:center;
+font-size:18px;
+font-weight:bold;
+}
+
+.chat-box{
+flex:1;
+padding:15px;
+overflow-y:auto;
+background:#f9fafb;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.message{
+max-width:70%;
+padding:10px 14px;
+border-radius:15px;
+font-size:14px;
+}
+
+.user{
+align-self:flex-end;
+background:#2563eb;
+color:white;
+border-bottom-right-radius:5px;
+}
+
+.ai{
+align-self:flex-start;
+background:#e5e7eb;
+color:#111827;
+border-bottom-left-radius:5px;
+}
+
+.input-area{
+display:flex;
+border-top:1px solid #e5e7eb;
+}
+
+.input-area input{
+flex:1;
+border:none;
+padding:12px;
+font-size:14px;
+outline:none;
+}
+
+.input-area button{
+background:#2563eb;
+color:white;
+border:none;
+padding:0 18px;
+cursor:pointer;
+}
+
+.input-area button:hover{
+background:#1d4ed8;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="chat-container">
+
+<div class="header">
+🤖 AI Chat Assistant
+</div>
+
+<div id="chatBox" class="chat-box"></div>
+
+<div class="input-area">
+<input id="userInput" type="text" placeholder="Ask something...">
+<button onclick="sendMessage()">Send</button>
+</div>
+
+</div>
+
+<script>
+
+const responses = [
+"That's an interesting question!",
+"I'm here to help you with that.",
+"Can you explain more about it?",
+"AI is transforming the future!",
+"Let me think about that...",
+"Great question!",
+"I recommend exploring more about AI and machine learning.",
+"That sounds like a good idea."
+]
+
+function sendMessage(){
+
+const input = document.getElementById("userInput")
+const message = input.value.trim()
+
+if(message === "") return
+
+addMessage(message,"user")
+
+input.value=""
+
+setTimeout(()=>{
+
+const reply = responses[Math.floor(Math.random()*responses.length)]
+addMessage(reply,"ai")
+
+},1000)
+
+}
+
+function addMessage(text,type){
+
+const chatBox = document.getElementById("chatBox")
+
+const msg = document.createElement("div")
+msg.classList.add("message",type)
+msg.innerText=text
+
+chatBox.appendChild(msg)
+
+chatBox.scrollTop = chatBox.scrollHeight
+
+}
+
+</script>
+
+</body>
+</html>

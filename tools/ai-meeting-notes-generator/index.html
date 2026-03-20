@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Meeting Notes Generator</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:#f1f5f9;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+}
+
+.container{
+width:750px;
+background:white;
+padding:30px;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+h1{
+text-align:center;
+margin-bottom:20px;
+color:#111827;
+}
+
+textarea{
+width:100%;
+height:180px;
+padding:12px;
+border-radius:8px;
+border:1px solid #d1d5db;
+resize:none;
+font-size:14px;
+}
+
+button{
+margin-top:15px;
+width:100%;
+padding:12px;
+background:#2563eb;
+border:none;
+color:white;
+font-size:16px;
+border-radius:8px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1d4ed8;
+}
+
+.output{
+margin-top:20px;
+background:#f3f4f6;
+padding:20px;
+border-radius:8px;
+}
+
+.output h3{
+margin-top:10px;
+}
+
+ul{
+padding-left:18px;
+}
+
+@media(max-width:800px){
+.container{
+width:90%;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📝 AI Meeting Notes Generator</h1>
+
+<textarea id="meetingText" placeholder="Paste meeting transcript here..."></textarea>
+
+<button onclick="generateNotes()">Generate Notes</button>
+
+<div class="output">
+
+<h3>Summary</h3>
+<p id="summary"></p>
+
+<h3>Action Points</h3>
+<ul id="actions"></ul>
+
+<h3>Decisions</h3>
+<ul id="decisions"></ul>
+
+</div>
+
+</div>
+
+<script>
+
+function generateNotes(){
+
+const text = document.getElementById("meetingText").value
+const sentences = text.split(". ")
+
+const summary = sentences.slice(0,2).join(". ")
+
+document.getElementById("summary").innerText = summary || "No summary generated."
+
+const actionsList = document.getElementById("actions")
+const decisionsList = document.getElementById("decisions")
+
+actionsList.innerHTML = ""
+decisionsList.innerHTML = ""
+
+sentences.forEach(sentence => {
+
+if(sentence.toLowerCase().includes("action") || sentence.toLowerCase().includes("task")){
+const li = document.createElement("li")
+li.innerText = sentence
+actionsList.appendChild(li)
+}
+
+if(sentence.toLowerCase().includes("decide") || sentence.toLowerCase().includes("decision")){
+const li = document.createElement("li")
+li.innerText = sentence
+decisionsList.appendChild(li)
+}
+
+})
+
+if(actionsList.innerHTML === ""){
+actionsList.innerHTML = "<li>No action points detected</li>"
+}
+
+if(decisionsList.innerHTML === ""){
+decisionsList.innerHTML = "<li>No decisions detected</li>"
+}
+
+}
+
+</script>
+
+</body>
+</html>

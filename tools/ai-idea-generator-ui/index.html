@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Idea Generator</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:#f1f5f9;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+}
+
+.container{
+width:650px;
+background:white;
+padding:30px;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+h1{
+margin-bottom:20px;
+color:#111827;
+}
+
+input{
+width:100%;
+padding:12px;
+border-radius:8px;
+border:1px solid #d1d5db;
+margin-bottom:15px;
+font-size:14px;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#2563eb;
+border:none;
+color:white;
+font-size:16px;
+border-radius:8px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1d4ed8;
+}
+
+.output{
+margin-top:20px;
+background:#f3f4f6;
+padding:20px;
+border-radius:8px;
+font-size:16px;
+font-weight:500;
+min-height:60px;
+}
+
+@media(max-width:700px){
+.container{
+width:90%;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>💡 AI Idea Generator</h1>
+
+<input id="topicInput" type="text" placeholder="Enter topic (startup, project, business)">
+
+<button onclick="generateIdea()">Generate Idea</button>
+
+<div id="ideaOutput" class="output">
+Your AI-generated idea will appear here...
+</div>
+
+</div>
+
+<script>
+
+function generateIdea(){
+
+const topic = document.getElementById("topicInput").value.toLowerCase()
+const output = document.getElementById("ideaOutput")
+
+const ideas = {
+
+startup:[
+"AI-powered career guidance platform for students.",
+"Subscription-based healthy meal delivery startup.",
+"Smart parking system for crowded cities.",
+"AI-based resume improvement service."
+],
+
+project:[
+"AI chatbot for college admission queries.",
+"IoT-based smart farming monitoring system.",
+"AI-powered fake news detection system.",
+"Student productivity tracking dashboard."
+],
+
+business:[
+"Online marketplace for local handmade products.",
+"Eco-friendly packaging solutions company.",
+"AI-based customer support automation service.",
+"Mobile car wash service with app booking."
+]
+
+}
+
+let list = []
+
+if(topic.includes("startup")) list = ideas.startup
+else if(topic.includes("project")) list = ideas.project
+else if(topic.includes("business")) list = ideas.business
+
+if(list.length === 0){
+output.innerText = "Please enter a valid topic like startup, project, or business."
+return
+}
+
+const randomIdea = list[Math.floor(Math.random()*list.length)]
+
+output.innerText = randomIdea
+
+}
+
+</script>
+
+</body>
+</html>

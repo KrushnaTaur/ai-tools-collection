@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Image Generator</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:#f1f5f9;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+}
+
+.container{
+width:900px;
+background:white;
+padding:30px;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+h1{
+text-align:center;
+margin-bottom:20px;
+color:#111827;
+}
+
+.input-area{
+display:flex;
+gap:10px;
+margin-bottom:20px;
+}
+
+.input-area input{
+flex:1;
+padding:12px;
+border-radius:8px;
+border:1px solid #d1d5db;
+font-size:14px;
+}
+
+.input-area button{
+padding:12px 20px;
+background:#2563eb;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+.input-area button:hover{
+background:#1d4ed8;
+}
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+}
+
+.gallery img{
+width:100%;
+height:200px;
+object-fit:cover;
+border-radius:8px;
+}
+
+.loader{
+text-align:center;
+font-size:14px;
+color:#6b7280;
+margin-top:10px;
+display:none;
+}
+
+@media(max-width:900px){
+.container{
+width:90%;
+}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🎨 AI Image Generator</h1>
+
+<div class="input-area">
+<input id="promptInput" type="text" placeholder="Enter image prompt (e.g. sunset, robot, mountains)">
+<button onclick="generateImages()">Generate</button>
+</div>
+
+<div class="loader" id="loader">
+Generating AI images...
+</div>
+
+<div id="gallery" class="gallery"></div>
+
+</div>
+
+<script>
+
+function generateImages(){
+
+const prompt = document.getElementById("promptInput").value.trim()
+const gallery = document.getElementById("gallery")
+const loader = document.getElementById("loader")
+
+if(prompt === ""){
+alert("Please enter a prompt")
+return
+}
+
+gallery.innerHTML = ""
+loader.style.display = "block"
+
+setTimeout(()=>{
+
+for(let i=0;i<6;i++){
+
+const img = document.createElement("img")
+
+img.src = `https://source.unsplash.com/400x300/?${prompt}&sig=${Math.random()}`
+
+gallery.appendChild(img)
+
+}
+
+loader.style.display = "none"
+
+},1200)
+
+}
+
+</script>
+
+</body>
+</html>
